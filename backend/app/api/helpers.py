@@ -50,10 +50,18 @@ def get_models(category):
 def add_counts_with_preds(preds):
     unique, counts = np.unique(preds, return_counts=True)
     sentiment_dict = dict(zip(unique, counts))
+    star = round(
+        (
+            (1 * sentiment_dict.get(-1, 0) + 5 * sentiment_dict.get(1, 0))
+            / (sentiment_dict.get(-1, 0) + sentiment_dict.get(1, 0))
+        ),
+        2,
+    )
     results = {
         "NEGATIVE": sentiment_dict.get(-1, 0),
         "NEUTRAL": sentiment_dict.get(0, 0),
         "POSITIVE": sentiment_dict.get(1, 0),
+        "STAR": star,
     }
     return results
 
